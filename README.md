@@ -27,20 +27,6 @@ The final images are built and hosted on the [dockerhub](https://hub.docker.com/
 
 ```bash
 $ docker run  -v /your/config/path/:/config \
-              -v /your/torrent/blackhole/path/:/blackhole \
-              -v /etc/localtime:/etc/localtime:ro \
-              -e PUID=1000 \
-              -e PGID=1000 \
-              -p 9117:9117 \
-              guillaumedsde/magneticod-distroless:latest
-```
-
-#### 🧊 Read-only `docker run`
-
-If you want your container to be _even_ more secure, you can run it with a read-only filesystem:
-
-```bash
-$ docker run  -v /your/config/path/:/config \
               -v /your/date/path/:/data \
               -v /etc/localtime:/etc/localtime:ro \
               --user "$(id -u):$(id -g)" \
