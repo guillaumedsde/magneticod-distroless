@@ -1,10 +1,10 @@
-ARG MAGNETICOD_VERSION=latest
+ARG MAGNETICOD_VERSION=v0.11.0
 
 FROM alpine:latest as base
 
 ARG MAGNETICOD_VERSION
 
-ADD https://github.com/boramalper/magnetico/releases/$MAGNETICOD_VERSION/download/magneticod /magneticod
+ADD https://github.com/boramalper/magnetico/releases/download/$MAGNETICOD_VERSION/magneticod /magneticod
 
 RUN chmod 755 /magneticod
 
