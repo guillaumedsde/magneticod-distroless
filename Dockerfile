@@ -8,7 +8,7 @@ ADD https://github.com/boramalper/magnetico/releases/download/$MAGNETICOD_VERSIO
 
 RUN chmod 755 /magneticod
 
-FROM gcr.io/distroless/base:latest
+FROM gcr.io/distroless/cc:latest
 
 # Build-time metadata as defined at http://label-schema.org
 ARG BUILD_DATE
