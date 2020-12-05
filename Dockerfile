@@ -1,4 +1,4 @@
-ARG MAGNETICOD_VERSION=v0.11.0
+ARG MAGNETICOD_VERSION=v0.12.0
 
 FROM alpine:latest as base
 
