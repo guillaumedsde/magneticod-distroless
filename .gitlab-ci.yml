@@ -39,8 +39,6 @@ build:
       - rootfs/**/*
       - .gitlab-ci.yml
       - build/**/*
-  tags:
-    - licorne
 
 # the 'pages' job will deploy and build your site to the 'public' path
 dockerhub-readme:
