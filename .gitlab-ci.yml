@@ -1,5 +1,63 @@
 stages:
+  - test
+  - build
   - deploy
+
+lint_dockerfile:
+  image: hadolint/hadolint:latest-debian
+  stage: test
+  script:
+    - hadolint Dockerfile
+
+build:
+  image: registry.gitlab.com/ix.ai/docker-buildx-qemu:latest
+  stage: build
+  services:
+    - docker:dind
+  retry: 2
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_TLS_CERTDIR: ""
+    BUILDKIT_INLINE_CACHE: '1'
+    DOCKER_DRIVER: overlay2
+    BUILDX_PLATFORM: linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6,linux/ppc64le,linux/s390x
+  before_script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin
+    - update-binfmts --enable # Important: Ensures execution of other binary formats is enabled in the kernel
+    # Use docker-container driver to allow useful features (push/multi-platform)
+    - docker context create MyContext
+    - docker buildx create --driver docker-container --name MyContext --use MyContext
+    - docker buildx inspect --bootstrap
+  script:
+    - docker buildx ls
+    - update-binfmts --enable # Important: Ensures execution of other binary formats is enabled in the kernel
+    - chmod +x ./build/build.sh
+    - . ./build/build.sh
+  only:
+    changes:
+      - Dockerfile
+      - rootfs/**/*
+      - .gitlab-ci.yml
+      - build/**/*
+  tags:
+    - licorne
+
+# the 'pages' job will deploy and build your site to the 'public' path
+dockerhub-readme:
+  stage: deploy
+  variables:
+    README_PATH: ./README.md
+  image:
+    name: sheogorath/readme-to-dockerhub:latest
+    entrypoint: [""]
+  script:
+    - node /app/index.js
+  only:
+    refs:
+      - master
+    changes:
+      - README.md
+      - .gitlab-ci.yml
 
 # the 'pages' job will deploy and build your site to the 'public' path
 pages:

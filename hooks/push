@@ -1,6 +1,0 @@
-#!/bin/bash
-
-MAGNETICOD_VERSION=$(curl --silent "https://api.github.com/repos/boramalper/magnetico/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")')
-
-docker push "$IMAGE_NAME" 
-docker push "$DOCKER_REPO:$MAGNETICOD_VERSION"
