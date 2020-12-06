@@ -54,7 +54,6 @@ This container is built for many hardware platforms:
 - linux/arm64
 - linux/arm
 - linux/ppc64le
-- linux/s390x
 
 All you have to do is use a recent version of docker and it will pull the appropriate version of the image from the docker hub.
 
