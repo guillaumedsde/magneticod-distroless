@@ -1,8 +1,6 @@
 # [🐋 Magneticod-distroless](https://github.com/guillaumedsde/magneticod-distroless)
 
-[![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/guillaumedsde/magneticod-distroless)](https://hub.docker.com/r/guillaumedsde/magneticod-distroless/builds)
-[![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline/guillaumedsde/magneticod-distroless?label=documentation)](https://guillaumedsde.gitlab.io/magneticod-distroless/)
-[![Docker Cloud Automated build](https://img.shields.io/docker/cloud/automated/guillaumedsde/magneticod-distroless)](https://hub.docker.com/r/guillaumedsde/magneticod-distroless/builds)
+[![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline/guillaumedsde/magneticod-distroless)](https://guillaumedsde.gitlab.io/magneticod-distroless/)
 [![Docker Image Version (latest by date)](https://img.shields.io/docker/v/guillaumedsde/magneticod-distroless)](https://hub.docker.com/r/guillaumedsde/magneticod-distroless/tags)
 [![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/guillaumedsde/magneticod-distroless)](https://hub.docker.com/r/guillaumedsde/magneticod-distroless)
 [![Docker Pulls](https://img.shields.io/docker/pulls/guillaumedsde/magneticod-distroless)](https://hub.docker.com/r/guillaumedsde/magneticod-distroless)
@@ -50,11 +48,15 @@ services:
 
 ## 🖥️ Supported platforms
 
-Currently this container supports only one (but widely used) platform:
+This container is built for many hardware platforms:
 
 - linux/amd64
+- linux/arm64
+- linux/arm
+- linux/ppc64le
+- linux/s390x
 
-I am waiting to see if Google implement their distroless Java images for other platforms (e.g. ARM based), for more information, see [here](https://github.com/GoogleContainerTools/distroless/issues/406) or [here](https://github.com/GoogleContainerTools/distroless/issues/377)
+All you have to do is use a recent version of docker and it will pull the appropriate version of the image from the docker hub.
 
 ## 🙏 Credits
 

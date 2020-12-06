@@ -3,6 +3,7 @@ ARG MAGNETICOD_VERSION=v0.12.0
 FROM golang:1.15-buster AS build
 
 ARG MAGNETICOD_VERSION
+
 # disable go proxy because of
 # https://github.com/golang/go/issues/40949
 ARG GOPROXY=direct
@@ -23,7 +24,7 @@ ARG VCS_REF
 ARG MAGNETICOD_VERSION
 
 LABEL org.label-schema.build-date=$BUILD_DATE \
-    org.label-schema.name="jackett-distroless" \
+    org.label-schema.name="magneticod-distroless" \
     org.label-schema.description="Distroless container for the Magneticod program" \
     org.label-schema.url="https://guillaumedsde.gitlab.io/magneticod-distroless/" \
     org.label-schema.vcs-ref=$VCS_REF \
