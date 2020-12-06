@@ -6,10 +6,6 @@ ARG MAGNETICOD_VERSION
 
 WORKDIR /magnetico
 
-RUN apt-get update && \
-    apt-get install --no-install-recommends -y \
-    git
-
 RUN git clone https://github.com/boramalper/magnetico.git . \
     && git checkout "${MAGNETICOD_VERSION}"
 
