@@ -9,7 +9,7 @@
 [![Docker Stars](https://img.shields.io/docker/stars/guillaumedsde/magneticod-distroless)](https://hub.docker.com/r/guillaumedsde/magneticod-distroless)
 [![GitHub](https://img.shields.io/github/license/guillaumedsde/magneticod-distroless)](https://github.com/guillaumedsde/magneticod-distroless/blob/master/LICENSE.md)
 
-This repository contains the code to build a small and secure **[distroless](https://github.com/GoogleContainerTools/distroless)** **docker** image for **[Magneticod](https://github.com/Magneticod/Magneticod)** which can be run as an unprivileged user.
+This repository contains the code to build a small and secure **[distroless](https://github.com/GoogleContainerTools/distroless)** **docker** image for **[Magneticod](https://github.com/boramalper/magnetico)** which can be run as an unprivileged user.
 The final images are built and hosted on the [dockerhub](https://hub.docker.com/r/guillaumedsde/magneticod-distroless) and the documentation is hosted on [gitlab pages](https://guillaumedsde.gitlab.io/magneticod-distroless/)
 
 ## ✔️ Features summary
