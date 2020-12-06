@@ -1,14 +1,23 @@
 ARG MAGNETICOD_VERSION=v0.12.0
 
-FROM alpine:latest as base
+FROM golang:1.15-buster AS build
 
 ARG MAGNETICOD_VERSION
 
-ADD https://github.com/boramalper/magnetico/releases/download/$MAGNETICOD_VERSION/magneticod /magneticod
+WORKDIR /magnetico
 
-RUN chmod 755 /magneticod
+RUN apt-get update && \
+    apt-get install --no-install-recommends -y \
+    git
 
-FROM gcr.io/distroless/base-debian10:latest
+RUN git clone https://github.com/boramalper/magnetico.git . \
+    && git checkout "${MAGNETICOD_VERSION}"
+
+RUN make magneticod
+
+RUN mkdir /data
+
+FROM gcr.io/distroless/base-debian10:nonroot
 
 # Build-time metadata as defined at http://label-schema.org
 ARG BUILD_DATE
@@ -25,13 +34,18 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
     org.label-schema.vendor="guillaumedsde" \
     org.label-schema.schema-version="1.0"
 
-COPY --from=base /magneticod /magneticod
+COPY --from=build /go/bin/magneticod /magneticod
 
 VOLUME /data
 VOLUME /config
 
+# Copy empty directory to /data and /config volumes
+# to fix permissions until this is fixed:
+# https://github.com/moby/moby/issues/2259
+COPY --chown=nonroot:nonroot --from=build /data /data
+COPY --chown=nonroot:nonroot --from=build /data /config
+
 ENV XDG_CONFIG_HOME=/config \
     XDG_DATA_HOME=/data
-
 
 ENTRYPOINT [ "/magneticod" ]
