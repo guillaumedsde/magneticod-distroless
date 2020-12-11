@@ -1,18 +1,22 @@
 ARG MAGNETICOD_VERSION=v0.12.0
 
-FROM golang:1.15-buster AS build
+# hadolint ignore=DL3029
+FROM --platform=$BUILDPLATFORM golang:1.15-buster AS build
 
 ARG MAGNETICOD_VERSION
 
-# disable go proxy because of
-# https://github.com/golang/go/issues/40949
-ARG GOPROXY=direct
 WORKDIR /magnetico
 
 RUN git clone https://github.com/boramalper/magnetico.git . \
     && git checkout "${MAGNETICOD_VERSION}"
 
-RUN make magneticod
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+# hadolint ignore=SC2086
+RUN echo I am running on "$BUILDPLATFORM" building for "$TARGETPLATFORM" \
+    && GOOS="$(echo $TARGETPLATFORM | cut -f1 -d '/')" GOARCH="$(echo $TARGETPLATFORM | cut -f2 -d '/')" make magneticod
 
 RUN mkdir /data
 

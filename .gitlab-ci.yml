@@ -19,9 +19,7 @@ build:
     DOCKER_TLS_CERTDIR: ""
     BUILDKIT_INLINE_CACHE: '1'
     DOCKER_DRIVER: overlay2
-    # disable s390x because of
-    # https://github.com/golang/go/issues/40949
-    BUILDX_PLATFORM: linux/amd64,linux/arm64,linux/arm,linux/ppc64le #,linux/s390x
+    BUILDX_PLATFORM: linux/amd64,linux/arm64,linux/arm,linux/ppc64le,linux/s390x
   before_script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin
     - update-binfmts --enable # Important: Ensures execution of other binary formats is enabled in the kernel
@@ -40,8 +38,6 @@ build:
       - rootfs/**/*
       - .gitlab-ci.yml
       - build/**/*
-  tags:
-    - licorne
 
 # the 'pages' job will deploy and build your site to the 'public' path
 dockerhub-readme:
