@@ -13,7 +13,7 @@ RUN git clone https://github.com/boramalper/magnetico.git . \
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
 
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+SHELL ["/bin/bash", "-x", "-o", "pipefail", "-c"]
 # hadolint ignore=SC2086
 RUN echo I am running on "$BUILDPLATFORM" building for "$TARGETPLATFORM" \
     && GOOS="$(echo $TARGETPLATFORM | cut -f1 -d '/')" GOARCH="$(echo $TARGETPLATFORM | cut -f2 -d '/')" make magneticod
