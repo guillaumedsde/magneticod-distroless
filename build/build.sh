@@ -12,6 +12,7 @@ fi
 
 # shellcheck disable=SC2086
 docker buildx build . \
+    --no-cache \
     --platform="${BUILDX_PLATFORM}" \
     --build-arg BUILD_DATE="$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \
     --build-arg VCS_REF="${CI_COMMIT_SHORT_SHA}" \
