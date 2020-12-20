@@ -16,6 +16,8 @@ ARG BUILDPLATFORM
 
 RUN printf "run: %s \nbuild: %s\n" "$BUILDPLATFORM" "$TARGETPLATFORM"
 
+COPY build/build_binary.sh ./
+
 SHELL ["/bin/bash", "-x", "-o", "pipefail", "-c"]
 RUN chmod +x ./build_binary.sh \
     && ./build_binary.sh
