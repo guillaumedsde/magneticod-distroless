@@ -1,3 +1,4 @@
+# syntax = docker/dockerfile:1.0-experimental
 ARG MAGNETICOD_VERSION=v0.12.0
 
 # hadolint ignore=DL3029
@@ -13,10 +14,11 @@ RUN git clone https://github.com/boramalper/magnetico.git . \
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
 
+RUN printf "run: %s \nbuild: %s\n" "$BUILDPLATFORM" "$TARGETPLATFORM"
+
 SHELL ["/bin/bash", "-x", "-o", "pipefail", "-c"]
-# hadolint ignore=SC2086
-RUN echo I am running on "$BUILDPLATFORM" building for "$TARGETPLATFORM" \
-    && GOOS="$(echo $TARGETPLATFORM | cut -f1 -d '/')" GOARCH="$(echo $TARGETPLATFORM | cut -f2 -d '/')" make magneticod
+RUN chmod +x ./build_binary.sh \
+    && ./build_binary.sh
 
 RUN mkdir /data
 
@@ -37,7 +39,7 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
     org.label-schema.vendor="guillaumedsde" \
     org.label-schema.schema-version="1.0"
 
-COPY --from=build /go/bin/magneticod /magneticod
+COPY --from=build /magnetico/magneticod /magneticod
 
 VOLUME /data
 VOLUME /config

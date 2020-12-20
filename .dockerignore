@@ -1,2 +1,4 @@
 # Ignore everything
 **
+
+!build/build_binary.sh
