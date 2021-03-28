@@ -55,4 +55,6 @@ COPY --chown=nonroot:nonroot --from=build /data /config
 ENV XDG_CONFIG_HOME=/config \
     XDG_DATA_HOME=/data
 
+WORKDIR /config
+
 ENTRYPOINT [ "/magneticod" ]
